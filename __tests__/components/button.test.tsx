@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { faker } from '@faker-js/faker';
 import Button from '@/components/button';
 
@@ -23,12 +24,12 @@ describe('<Button />', () => {
       expect(button).toBeInTheDocument();
     });
 
-    it('Deve chamar a função de "onClick" quando o botão for clicado', () => {
+    it('Deve chamar a função de "onClick" quando o botão for clicado', async () => {
       const onClick = jest.fn();
       render(<Button onClick={onClick} />);
 
       const button = screen.getByRole('button');
-      fireEvent.click(button);
+      await userEvent.click(button);
 
       expect(onClick).toBeCalledTimes(1);
     });
@@ -50,5 +51,5 @@ describe('<Button />', () => {
 
       expect(button).toHaveStyle("background-color: #fff");
     });
-   });
+  });
 })
