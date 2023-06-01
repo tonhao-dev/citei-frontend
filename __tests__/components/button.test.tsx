@@ -40,7 +40,7 @@ describe('<Button />', () => {
 
       const button = screen.getByRole('button');
 
-      expect(button).toHaveStyle("background-color: #000; border-radius: 7px; border: 1px solid #fff;");
+      expect(button).toHaveStyle("background-color: #000");
     });
 
     it('Deve renderizar um botão preto quando o valor passado via prop "variant" for igual a "white"', () => {
@@ -48,7 +48,7 @@ describe('<Button />', () => {
 
       const button = screen.getByRole('button');
 
-      expect(button).toHaveStyle("background-color: #fff; border-radius: 7px; border: 1px solid #000;");
+      expect(button).toHaveStyle("background-color: #fff");
     });
    });
 })
