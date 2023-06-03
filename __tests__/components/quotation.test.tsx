@@ -4,6 +4,20 @@ import { faker } from '@faker-js/faker';
 import Quotation from '@/components/quotation';
 
 describe('<Quotation>', () => {
+  describe('Deve deixar de exibir as informações quando elas não forem passadas para o componente', () => {
+    it('Deve deixar de renderizar o parágrafo da citação quando nada for passado no atributo "quote"', () => {
+      render(<Quotation />);
+
+      expect(screen.getByTitle('quote-title')).not.toBeInTheDocument();
+    });
+
+    it('Deve deixar de renderizar o paragrafo com o nome do autor quando essa informação não for passada', () => {
+      render(<Quotation />);
+
+      expect(screen.getByTitle('quote-author')).not.toBeInTheDocument();
+    });
+  });
+
   describe('Deve renderizar as informações que foram passadas para o componente corretamente', () => {
     it('Deve exibir a citação que for passada no atributo "quote"', () => {
       const quote = faker.word.words(10);
