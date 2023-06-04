@@ -26,7 +26,7 @@ describe('<Search />', () => {
       render(<Search />);
 
       await userEvent.click(screen.getByTestId('search-icon'));
-      await userEvent.type(screen.getByRole('input'), title);
+      await userEvent.type(screen.getByRole('textbox'), title);
 
       expect(title).toBeInTheDocument();
     });
