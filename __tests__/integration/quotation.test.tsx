@@ -69,4 +69,29 @@ describe('/containers/quotation', () => {
       expect(screen.getByText('Salvar')).toBeVisible();
     });
   });
+
+  describe('Deve filtrar as citações corretamente', () => {
+    it('Deve seguir exibindo todas as citações quando o usuário não inserir nenhum texto após clicar no icone de buscar', async () => {
+      const quotations = Array.from(Array(faker.number.int({ min: 1, max: 10 }))).map(() => quotation({ collection: 'colecao' }));
+      const fetch = jest.fn(() => Promise.resolve(quotations));
+      render(<Quotation fetchData={fetch} />);
+
+      await userEvent.click(screen.getByTestId('search-icon'));
+
+      quotations.forEach(({ quote }) => expect(screen.getByText(quote)).toBeInTheDocument());
+    });
+
+    it('Deve exibir somente a citação cujo texto for inserido no campo de buscar citação', async () => {
+      const quotations = Array.from(Array(faker.number.int({ min: 5, max: 10 }))).map(() => quotation({ collection: 'colecao' }));
+      const fetch = jest.fn(() => Promise.resolve(quotations));
+      const [first, second] = faker.helpers.arrayElements(quotations, 2);
+      render(<Quotation fetchData={fetch} />);
+
+      await userEvent.click(screen.getByTestId('search-icon'));
+      await userEvent.type(screen.getByRole('textbox'), first.quote);
+
+      expect(screen.getByText(first.quote)).toBeInTheDocument();
+      expect(screen.getByText(second.quote)).not.toBeInTheDocument();
+    });
+  });
 });
