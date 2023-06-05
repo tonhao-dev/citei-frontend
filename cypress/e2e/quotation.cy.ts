@@ -11,7 +11,7 @@ describe('e2e/quotation', () => {
     it('Deve exibir o título da página de citações quando ela for carregada', () => {
       cy.visit('http://localhost:3000/');
 
-      cy.get('h1').contains('Citei');
+      cy.get('h1').contains('Citei').should('be.visible');
     });
   });
 
