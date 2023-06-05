@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import './styles.module.css';
+import styles from './styles.module.css';
 
 interface SubtitleProps {
   children: ReactNode;
@@ -7,7 +7,7 @@ interface SubtitleProps {
 
 function SubTitle({ children, ...props }: SubtitleProps) {
   return (
-    <h2 {...props}>
+    <h2 {...props} className={styles.subtitle}>
       {children}
     </h2>
   );
