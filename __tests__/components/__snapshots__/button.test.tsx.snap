@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Button /> Deve ser igual ao snapshot salvo anteriormente quando o botão for renderizado 1`] = `
+<button
+  class="black"
+>
+  likewise toward firm
+</button>
+`;
