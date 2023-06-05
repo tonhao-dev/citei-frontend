@@ -37,7 +37,23 @@ describe('e2e/quotation', () => {
 
       cy.get('button').contains('Salvar').should('be.visible');
     });
-   })
+   });
+
+  describe('Deve exibir corretamente as citações de acordo com o texto digitado no campo de filtro', () => {
+    it('Deve seguir exibir a citação adicionada por último após seu texto ser digitado no campo de filtragem', () => {
+      const quotation = faker.word.words(10);
+      cy.visit('http://localhost:3000/');
+      cy.get('button').contains('Adicionar citação').click();
+      cy.get('textarea').type(quotation);
+      cy.get('select').select(0);
+      cy.get('button').contains('Salvar').click();
+
+      cy.get('[data-cy="search-icon"]').click();
+      cy.get('textbox[data-cy="search-text"]').type(quotation);
+
+      cy.get(quotation).should('be.visible');
+    });
+  });
 })
 
 // Prevent TypeScript from reading file as legacy script
