@@ -1,5 +1,8 @@
+import { ImageURL } from "src/entities/url";
+
 export interface ICollection {
-  title: string;
-  subtitle: string;
-  author: string;
+  readonly title: string;
+  readonly subtitle: string;
+  readonly author: string;
+  readonly image: ImageURL;
 }
