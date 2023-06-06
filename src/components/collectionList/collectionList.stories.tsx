@@ -16,7 +16,7 @@ type CollectionListStory = StoryObj<typeof CollectionList>;
 
 export const CollectionListStory: CollectionListStory = {
   args: {
-    collections: Array.from(Array(faker.number.int({ min: 1, max: 10 }))).map(() => collection())
+    collections: Array.from(Array(4)).map(() => collection())
   },
 };
 
