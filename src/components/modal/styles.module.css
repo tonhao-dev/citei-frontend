@@ -1,0 +1,19 @@
+.hidden {
+  visibility: hidden;
+}
+
+.background {
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: transparent;
+  backdrop-filter: blur(1px);
+  padding: 0px 20px;
+  z-index: 10;
+}
+
+.modal {
+  width: 100%;
+}
