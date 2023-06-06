@@ -9,9 +9,9 @@ interface ICollectionListProps {
 
 function CollectionList({ collections }: ICollectionListProps) {
   return (
-    <div className={styles['collection-list']}>
+    <ul className={styles['collection-list']}>
       {collections.map((collection) => <Collection key={collection.title} collection={collection} />)}
-    </div>
+    </ul>
   )
 }
 
