@@ -2,24 +2,16 @@ import React from 'react';
 import { LuEdit } from 'react-icons/lu';
 import { BsTrash3 } from 'react-icons/bs';
 import styles from './styles.module.css'
-import { ImageURL } from '../../entities/url';
+import { ICollection } from 'src/interfaces/collection';
 
 interface ICollectionProps {
-  title: string;
-  subtitle: string;
-  author: string;
-  image: string;
+  collection: ICollection;
   onEdit?: () => void;
   onDelete?: () => void;
 }
 
-const DEFAULT_IMAGE_URL = 'https://i.ibb.co/ZHDSnj4/foo.jpg';
-
 function Collection({
-  title = 'Título da coleção',
-  image = DEFAULT_IMAGE_URL,
-  subtitle = 'Subtítulo da coleção',
-  author,
+  collection: { title, image, author, subtitle },
   onEdit,
   onDelete
 }: ICollectionProps
@@ -27,7 +19,7 @@ function Collection({
 
   return (
     <div className={styles.collection}>
-      <img src={new ImageURL(image).isValid() ? image : DEFAULT_IMAGE_URL} alt="Capa da coleção" />
+      <img src={image.url} alt="Capa da coleção" />
       <div className={styles.aside}>
         <div className={styles.text}>
           <h3 className={styles.title}>{title}</h3>
