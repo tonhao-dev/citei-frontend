@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { faker } from '@faker-js/faker';
-import CollectionList from '@/components/collectionList';
-import { collection } from '__tests__/factory/collection';
-import { ICollection } from 'src/interfaces/collection';
+import CollectionList from '../../src/components/collectionList';
+import { collection } from '../factory/collection';
+import { ICollection } from '../../src/interfaces/collection';
 
 describe('<CollectionList>', () => {
   describe('Deve renderizar uma lista de coleções em branco', () => {
@@ -18,6 +18,14 @@ describe('<CollectionList>', () => {
       render(<CollectionList collections={collections} />);
 
       collections.forEach(({ title }) => expect(screen.getByText(title)).toBeInTheDocument());
+    });
+
+    it('Deve renderizar o mesmo numero de coleções passadas via prop "collections"', () => {
+      const collections = Array.from(Array(faker.number.int({ min: 1, max: 10 }))).map(() => collection());
+
+      const { container } = render(<CollectionList collections={collections} />);
+
+      expect(container.firstChild?.childNodes.length).toBe(collections.length)
     });
   });
 });
