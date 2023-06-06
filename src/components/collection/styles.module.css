@@ -1,0 +1,73 @@
+.collection {
+  width: 100%;
+  max-width: 320px;
+  border: 1px solid #7A7A7A;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px;
+  gap: 11px;
+  position: relative;
+}
+
+.collection img {
+  width: 90px;
+  height: 128px;
+  border: 1px solid #000;
+  border-radius: 7px;
+  object-fit: cover;
+}
+
+.aside {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  min-height: 128px;
+}
+
+.text {
+  width: 100%;
+}
+
+.title {
+  font-size: 20px;
+  line-height: 24px;
+  text-align: left;
+  color: #000;
+}
+
+.subtitle {
+  font-size: 12px;
+  line-height: 15px;
+  color: #7A7A7A;
+}
+
+.author {
+  font-size: 12px;
+  line-height: 15px;
+  text-align: right;
+
+  color: #000;
+}
+
+.actions {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.actions button {
+  width: 49%;
+  gap: 5px;
+  height: 20px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}

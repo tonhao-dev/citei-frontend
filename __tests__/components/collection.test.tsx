@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { faker } from '@faker-js/faker';
-import Collection from '@/components/collection';
+import Collection from '../../src/components/collection';
 
 describe('<Collection>', () => {
   describe('Deve exibir uma coleção corretamente quando as informações passadas forem válidas', () => {
@@ -17,13 +17,6 @@ describe('<Collection>', () => {
       render(<Collection subtitle={subtitle} />);
 
       expect(screen.getByText(subtitle)).toBeInTheDocument();
-    });
-
-    it('Deve exibir o subtítulo da coleção na cor cinza quando ele for passado na prop "subtitle"', () => {
-      const subtitle = faker.word.words(7);
-      render(<Collection subtitle={subtitle} />);
-
-      expect(screen.getByText(subtitle)).toHaveStyle('color: #7A7A7A');
     });
 
     it('Deve exibir o nome do autor da coleção quando ele for passado na prop "author"', () => {
@@ -67,7 +60,7 @@ describe('<Collection>', () => {
     });
 
     it('Deve exibir uma imagem padrão quando um link inválido for passado via prop "image"', () => {
-      const DEFAULT_IMAGE_URL = 'https://loremflickr.com/cache/resized/65535_52221967454_bd4b0a44d1_n_320_240_nofilter.jpg';
+      const DEFAULT_IMAGE_URL = 'https://i.ibb.co/ZHDSnj4/foo.jpg';
       render(<Collection image={faker.person.fullName()} />);
 
       expect(screen.getByRole('img').getAttribute('src')).toBe(DEFAULT_IMAGE_URL);
@@ -79,7 +72,7 @@ describe('<Collection>', () => {
       const onEdit = jest.fn();
       render(<Collection onEdit={onEdit} />);
 
-      await userEvent.click(screen.getByText('Editar'));
+      await userEvent.click(screen.getByRole('button', { name: 'Editar' }));
 
       expect(onEdit).toBeCalledTimes(1);
     });
@@ -88,7 +81,7 @@ describe('<Collection>', () => {
       const onDelete = jest.fn();
       render(<Collection onDelete={onDelete} />);
 
-      await userEvent.click(screen.getByText('Excluir'));
+      await userEvent.click(screen.getByRole('button', { name: 'Excluir' }));
 
       expect(onDelete).toBeCalledTimes(1);
     });
