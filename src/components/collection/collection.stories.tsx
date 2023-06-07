@@ -15,7 +15,11 @@ type SearchStory = StoryObj<typeof Collection>;
 
 export const CollectionStory: SearchStory = {
   args: {
-    collection: collection()
+    collection: collection({
+      title: 'Título da coleção',
+      author: 'Luis',
+      subtitle: 'Subtítulo da coleção',
+    })
   },
 };
 
