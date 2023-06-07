@@ -6,3 +6,10 @@ export interface ICollection {
   readonly author: string;
   readonly image: ImageURL;
 }
+
+export interface IRawCollection {
+  title: string;
+  subtitle: string;
+  author: string;
+  image: string;
+}
