@@ -3,10 +3,10 @@ import { collection } from "./collection";
 
 export function collectionService(initial?: Partial<ICollectionService>): ICollectionService {
   return {
-    getValidCollections: () => new Promise(() => []),
+    getValidCollections: () => Promise.resolve([]),
     filterCollections: (_, collections) => collections,
     isValidCollection: (_) => true,
-    saveCollection: (_) => new Promise(() => collection()),
+    saveCollection: (_) => Promise.resolve(collection()),
     ...initial,
   }
 }
