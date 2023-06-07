@@ -33,11 +33,54 @@ describe('/containers/collection', () => {
 
       expect(screen.getByText('Adicionar coleção')).toBeInTheDocument();
     });
+
+    it('Deve exibir o subtítulo da página quando ela for carregada', async () => {
+      const collectionService: ICollectionService = {
+        getValidCollections: jest.fn().mockResolvedValue([]),
+      };
+      await act(async () => render(<Collection collectionService={collectionService} />));
+
+      expect(screen.getByRole('heading', { name: 'Coleções, seu cunjunto de citações em reunidos em lugar.' }));
+    });
+
+    it('Deve exibir um ícone de buscar quando a página for carregada', async () => {
+      const collectionService: ICollectionService = {
+        getValidCollections: jest.fn().mockResolvedValue([]),
+      }
+
+      await act(async () => render(<Collection collectionService={collectionService} />));
+
+      expect(screen.getByLabelText('search-icon')).toBeInTheDocument();
+    });
+
+    it('Deve esconder o título da página quando o icone de buscar for pressionado', async () => {
+      const collectionService: ICollectionService = {
+        getValidCollections: jest.fn().mockResolvedValue([]),
+      }
+      await act(async () => render(<Collection collectionService={collectionService} />));
+
+      await act(async () => userEvent.click(screen.getByLabelText('search-icon')));
+
+      expect(screen.queryByText('Citei')).toBe(null);
+    });
+
+    it('Deve esconder o subtítulo da página quando o icone de buscar for pressionado', async () => {
+      const collectionService: ICollectionService = {
+        getValidCollections: jest.fn().mockResolvedValue([]),
+      }
+      await act(async () => render(<Collection collectionService={collectionService} />));
+
+      await act(async () => userEvent.click(screen.getByLabelText('search-icon')));
+
+      expect(screen.queryByText('Coleções, seu cunjunto de citações em reunidos em lugar.')).toBe(null);
+    });
   });
 
   describe('Deve renderizar as coleções corretamente quando elas forem injetadas via prop', () => {
     it('Deve exibir o nome das coleções que foram injetadas via serviço de coleções', async () => {
-      const collections = Array.from(Array(faker.number.int({ min: 1, max: 10 }))).map(() => collection());
+      const collections = Array.from(Array(faker.number.int({ min: 1, max: 10 }))).map(() => collection({
+        title: faker.word.words(2)
+      }));
       const collectionService: ICollectionService = {
         getValidCollections: jest.fn().mockResolvedValue(collections),
       }
