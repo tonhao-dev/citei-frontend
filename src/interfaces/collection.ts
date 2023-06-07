@@ -30,3 +30,8 @@ export interface IServiceCollectionBody {
   imagem: string;
   autor: string;
 }
+
+export interface IServiceCollectionResponse extends IServiceCollectionBody {
+  id: number;
+  created_at: ISODate;
+}
