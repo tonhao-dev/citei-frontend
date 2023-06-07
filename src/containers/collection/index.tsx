@@ -26,10 +26,11 @@ function Collection({ collectionService }: ICollectionProps) {
   }
 
   async function save() {
-    if (!collectionService.isValidCollection(newCollection)) return;
+    if (!collectionService.isValidCollection(newCollection)) return window.alert('Erro! revise os campos do modal');
 
     collectionService.saveCollection(newCollection as IRawCollection);
     setModalIsOpen(!modalIsOpen);
+    setNewCollection({})
   }
 
   useEffect(() => {
@@ -49,12 +50,14 @@ function Collection({ collectionService }: ICollectionProps) {
       <CollectionList collections={collectionService.filterCollections(search, collections)} />
 
       <Modal visible={modalIsOpen}>
-        <Input placeholder='Título da coleção' onChange={(e) => { setNewCollection({ ...newCollection, title: e.target.value }) }} />
-        <Input placeholder='Subtítulo da coleção' onChange={(e) => { setNewCollection({ ...newCollection, subtitle: e.target.value }) }} />
-        <Input placeholder='Link para imagem de capa' onChange={(e) => { setNewCollection({ ...newCollection, image: e.target.value }) }} />
-        <Input placeholder='Autor da coleção' onChange={(e) => { setNewCollection({ ...newCollection, author: e.target.value }) }} />
+        <form className={styles.form} onSubmit={e => e.preventDefault()}>
+          <Input required placeholder='Título da coleção' onChange={(e) => { setNewCollection({ ...newCollection, title: e.target.value }) }} />
+          <Input required placeholder='Subtítulo da coleção' onChange={(e) => { setNewCollection({ ...newCollection, subtitle: e.target.value }) }} />
+          <Input required placeholder='Link para imagem de capa' onChange={(e) => { setNewCollection({ ...newCollection, image: e.target.value }) }} />
+          <Input required placeholder='Autor da coleção' onChange={(e) => { setNewCollection({ ...newCollection, author: e.target.value }) }} />
 
-        <Button title='Salvar' variant='white' onClick={() => save()} />
+          <Button title='Salvar' variant='white' onClick={() => save()} />
+        </form>
       </Modal>
 
       <Button title="Adicionar coleção" onClick={() => setModalIsOpen(!modalIsOpen)} aria-label='Adicionar coleção' />

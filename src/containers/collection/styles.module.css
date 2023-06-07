@@ -22,6 +22,15 @@
   padding: 20px;
 }
 
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+}
+
 .collection-container>button {
   position: absolute;
   height: 40px;
