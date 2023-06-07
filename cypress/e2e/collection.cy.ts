@@ -36,7 +36,7 @@ describe('e2e/collection', () => {
   });
 
   describe('Deve filtrar as coleções corretamente', () => {
-    it.only('Deve exibir a coleção cujo título foi digitado no campo de buscar', async() => {
+    it('Deve exibir a coleção cujo título foi digitado no campo de buscar', async() => {
       cy.visit('http://localhost:8080');
 
       cy.get('h3').first().then((element) => {
