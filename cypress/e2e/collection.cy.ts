@@ -33,7 +33,22 @@ describe('e2e/collection', () => {
 
       cy.get('h3').contains(newCollection.title).should('be.visible');
     });
-   });
+  });
+
+  describe('Deve filtrar as coleções corretamente', () => {
+    it.only('Deve exibir a coleção cujo título foi digitado no campo de buscar', async() => {
+      cy.visit('http://localhost:8080');
+
+      cy.get('h3').first().then((element) => {
+        const firstCollectionTitle = element[0].innerText;
+
+        cy.get('[aria-label="search-icon"]').click();
+        cy.get('input[name="search-input"').type(firstCollectionTitle);
+
+        cy.get('h3').contains(firstCollectionTitle).should('be.visible');
+      });
+    });
+  });
 })
 
 // Prevent TypeScript from reading file as legacy script
