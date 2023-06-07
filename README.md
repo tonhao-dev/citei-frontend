@@ -1,29 +1,61 @@
-# Next.js + Jest
+# 🏆 Sobre o projeto
 
-This example shows how to configure Jest to work with Next.js.
+Projeto desenvolvido para explicação e exemplificação de conceitos de testes unitários, integração, regressão visual e E2E para a turma da [web academy - UFAC](http://webacademy.ufac.br/).
 
-This includes Next.js' built-in support for Global CSS, CSS Modules and TypeScript.
+---
 
-## How to Use
+## ⚒ Ferramentas
 
-Quickly get started using [Create Next App](https://github.com/vercel/next.js/tree/canary/packages/create-next-app#readme)!
+Principais ferramentas que foram ultilizadas no front end da aplicação 'citei' abaixo:
 
-In your terminal, run the following command:
+- [NextJS](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Jest](https://jestjs.io/pt-BR/)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- [Cypress](https://www.cypress.io/)
+- [Storybook](https://storybook.js.org/)
 
-```bash
-npx create-next-app --example with-jest with-jest-app
-```
+---
 
-```bash
-yarn create next-app --example with-jest with-jest-app
-```
+## 🚀 Iniciar projeto
 
-```bash
-pnpm create next-app --example with-jest with-jest-app
-```
-
-## Run Jest Tests
+Versões
 
 ```bash
-npm test
+Node >= v16.20.0
+Yarn >= 1.22.19
 ```
+
+Instale o yarn
+
+```sh
+npm install --global yarn
+```
+
+Clone o repositório
+
+```sh
+git clone https://github.com/tonhao-dev/citei-frontend.git
+```
+
+Entre na pasta do projeto
+
+```sh
+cd citei-frontend
+```
+
+Instale as dependências
+
+```sh
+yarn install
+```
+
+Inicie a aplicação
+
+```sh
+yarn dev
+```
+
+---
+
+Feito com ❤️
