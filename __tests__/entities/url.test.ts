@@ -27,5 +27,13 @@ describe('entities/url', () => {
 
       expect(new ImageURL(url).url).toBe(DEFAULT_IMAGE_URL);
     });
+
+    it('Deve retornar true quando a URL informada for uma URL estatica da propria aplicação', () => {
+      const url = `${process.env.NEXT_PUBLIC_DEV_URL}/assets/collection.jpg`;
+
+      const isValid = new ImageURL(url).isValid;
+
+      expect(isValid).toBe(true);
+    })
   });
 });
