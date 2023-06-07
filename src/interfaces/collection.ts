@@ -1,4 +1,5 @@
 import { ImageURL } from "src/entities/url";
+import { ISODate } from "./isodate";
 
 export interface ICollection {
   readonly title: string;
@@ -12,4 +13,13 @@ export interface IRawCollection {
   subtitle: string;
   author: string;
   image: string;
+}
+
+export interface IServiceCollection {
+  colecao_id: number,
+  colecao_titulo: string,
+  colecao_subtitulo: string,
+  colecao_imagem: string,
+  colecao_autor: string,
+  created_at: ISODate
 }

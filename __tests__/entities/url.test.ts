@@ -20,5 +20,12 @@ describe('entities/url', () => {
 
       expect(new ImageURL(url).isValid).toBe(false);
     });
+
+    it('Deve retornar a URL padrão quando uma URL inválida for enviada', () => {
+      const DEFAULT_IMAGE_URL = 'https://i.ibb.co/ZHDSnj4/foo.jpg';
+      const url = '';
+
+      expect(new ImageURL(url).url).toBe(DEFAULT_IMAGE_URL);
+    });
   });
 });
