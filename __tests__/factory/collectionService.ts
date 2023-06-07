@@ -4,6 +4,8 @@ export function collectionService(initial?: Partial<ICollectionService>): IColle
   return {
     getValidCollections: () => new Promise(() => []),
     filterCollections: (_, collections) => collections,
+    isValidCollection: (_) => true,
+    saveCollection: (_) => {},
     ...initial,
   }
 }
