@@ -1,12 +1,10 @@
-import Head from 'next/head';
+import { collectionService } from '../__tests__/factory/collectionService';
+import CollectionContainer from '../src/containers/collection'
 
-export default function Home() {
+function Collection() {
   return (
-    <div>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-    </div>
+    <CollectionContainer collectionService={collectionService()} />
   );
 }
+
+export default Collection;

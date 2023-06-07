@@ -1,8 +1,11 @@
 html,
-body {
+body,
+#__next {
   padding: 0;
   margin: 0;
   font-family: var(--cormorant-font);
+  min-height: 100vh;
+  height: 100%;
 }
 
 * {

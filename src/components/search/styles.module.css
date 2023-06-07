@@ -1,7 +1,8 @@
 .search {
   width: 100%;
-  max-width: 310px;
-
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .search div {
