@@ -23,3 +23,10 @@ export interface IServiceCollection {
   colecao_autor: string,
   created_at: ISODate
 }
+
+export interface IServiceCollectionBody {
+  titulo: string;
+  subtitulo: string;
+  imagem: string;
+  autor: string;
+}
