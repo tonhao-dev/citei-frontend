@@ -1,0 +1,12 @@
+.collection-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.collection-container>button {
+  position: fixed;
+  bottom: 62px;
+  left: auto;
+  right: auto;
+}
