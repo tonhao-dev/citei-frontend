@@ -5,13 +5,15 @@ export class ImageURL {
   public isValid = false;
 
   constructor (url: string) {
+    this.isValid = this.isValidUrl(url);
+    if(!this.isValid) return;
+
     this.url = url;
-    this.isValid = this.isValidUrl()
   }
 
-  private isValidUrl(){
+  private isValidUrl(url: string){
     try {
-      const newUrl = new URL(this.url);
+      const newUrl = new URL(url);
       return newUrl.protocol === 'http:' || newUrl.protocol === 'https:';
     } catch (err) {
       return false;
