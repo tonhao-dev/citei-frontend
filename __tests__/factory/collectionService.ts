@@ -1,9 +1,9 @@
 import { ICollectionService } from "../../src/service/collection";
 
-export function collectionService(initial?: ICollectionService): ICollectionService {
+export function collectionService(initial?: Partial<ICollectionService>): ICollectionService {
   return {
-    ...initial,
     getValidCollections: () => new Promise(() => []),
-    filterCollections: (_, collections) => collections
+    filterCollections: (_, collections) => collections,
+    ...initial,
   }
 }
