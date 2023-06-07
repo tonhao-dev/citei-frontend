@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import styles from './styles.module.css'
 import Title from '../../components/title';
 import Subtitle from '../../components/subtitle';
 import CollectionList from '../../components/collectionList';
@@ -36,12 +37,14 @@ function Collection({ collectionService }: ICollectionProps) {
   }, []);
 
   return (
-    <div className="collection-container">
-      <div className="title">
-        {!isSearch && <Title>Citei</Title>}
-        <Search onChange={(text) => setSearch(text)} onToggle={isSearch => setIsSearch(isSearch)} />
-      </div>
-      {!isSearch && <Subtitle>Coleções, seu cunjunto de citações em reunidos em lugar.</Subtitle>}
+    <div className={styles['collection-container']}>
+      <header className={styles.heading}>
+        <div className={styles.title}>
+          {!isSearch && <Title>Citei</Title>}
+          <Search onChange={(text) => setSearch(text)} onToggle={isSearch => setIsSearch(isSearch)} />
+        </div>
+        {!isSearch && <Subtitle>Coleções, seu conjunto de citações em reunidos em lugar.</Subtitle>}
+      </header>
 
       <CollectionList collections={collectionService.filterCollections(search, collections)} />
 
@@ -54,7 +57,7 @@ function Collection({ collectionService }: ICollectionProps) {
         <Button title='Salvar' variant='white' onClick={() => save()} />
       </Modal>
 
-      <Button title="Adicionar coleção" onClick={() => setModalIsOpen(!modalIsOpen)} />
+      <Button title="Adicionar coleção" onClick={() => setModalIsOpen(!modalIsOpen)} aria-label='Adicionar coleção' />
     </div>
   )
 }

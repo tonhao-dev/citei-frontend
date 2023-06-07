@@ -2,11 +2,30 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  position: relative;
+}
+
+.title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.heading {
+  width: 100%;
+  padding: 20px;
 }
 
 .collection-container>button {
-  position: fixed;
+  position: absolute;
+  height: 40px;
   bottom: 62px;
-  left: auto;
-  right: auto;
+  left: 40px;
+  right: 40px;
 }
