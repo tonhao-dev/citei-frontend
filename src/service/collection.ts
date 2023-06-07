@@ -34,7 +34,7 @@ export class CollectionService implements ICollectionService {
   }
 
   public filterCollections(text: string, collections: ICollection[]) {
-    return collections.filter(({title}) => title.includes(text));
+    return collections.filter(({title}) => title.toLocaleLowerCase().includes(text.toLocaleLowerCase()));
   }
 
   public async saveCollection(collection: IRawCollection): Promise<ICollection> {
