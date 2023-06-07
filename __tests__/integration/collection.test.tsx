@@ -41,7 +41,7 @@ describe('/containers/collection', () => {
       });
       await act(async () => render(<Collection collectionService={collectionService} />));
 
-      expect(screen.getByRole('heading', { name: 'Coleções, seu cunjunto de citações em reunidos em lugar.' }));
+      expect(screen.getByRole('heading', { name: 'Coleções, seu conjunto de citações em reunidos em lugar.' }));
     });
 
     it('Deve exibir um ícone de buscar quando a página for carregada', async () => {
