@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { faker } from '@faker-js/faker';
@@ -8,14 +9,14 @@ describe('<Input />', () => {
     it('Deve renderizar o input com o texto que for passado via prop "value"', () => {
       const text = faker.word.words(2);
 
-      render(<Input value={text} onChange={() => { }} />);
+      render(<Input value={text} onChange={() => {}} />);
 
       expect(screen.getByDisplayValue(text)).toBeInTheDocument();
     });
 
     it('Deve exibir o texto que for digitado pelo usuário dentro do input', async () => {
       const text = faker.word.words(2);
-      render(<Input value={text} onChange={() => { }} />);
+      render(<Input value={text} onChange={() => {}} />);
 
       await userEvent.type(screen.getByRole('textbox'), text);
 

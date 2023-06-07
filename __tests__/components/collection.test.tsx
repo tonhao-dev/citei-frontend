@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { faker } from '@faker-js/faker';
@@ -67,4 +68,4 @@ describe('<Collection>', () => {
       expect(onDelete).toBeCalledTimes(1);
     });
   });
-})
+});

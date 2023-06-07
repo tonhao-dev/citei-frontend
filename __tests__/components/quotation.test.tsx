@@ -1,7 +1,8 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { faker } from '@faker-js/faker';
-import Quotation from '@/components/quotation';
+import Quotation from '../../src/components/quotation'; // implement quotation
 
 describe('<Quotation>', () => {
   describe('Deve deixar de exibir as informações quando elas não forem passadas para o componente', () => {
@@ -82,6 +83,6 @@ describe('<Quotation>', () => {
       await userEvent.click(screen.getByTestId('quotation-share'));
 
       expect(onShare).toBeCalledTimes(1);
-    })
+    });
   });
 });
