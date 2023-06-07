@@ -39,7 +39,6 @@ describe('<Search />', () => {
     });
 
     it('Deve executar a função de "onToggle" quando o usuário clicar no icone de buscar', async () => {
-      const text = faker.word.words(2);
       const onToggle = jest.fn();
       const onChange = jest.fn();
       render(<Search onChange={onChange} onToggle={onToggle} />);
