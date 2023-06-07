@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { faker } from '@faker-js/faker';
 import SubTitle from '../../src/components/subtitle';
@@ -9,5 +10,5 @@ describe('<SubTitle>', () => {
     render(<SubTitle>{subtitle}</SubTitle>);
 
     expect(screen.getByText(subtitle)).toBeInTheDocument();
-  })
+  });
 });
