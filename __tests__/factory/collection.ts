@@ -7,7 +7,7 @@ export function collection(initial?: Partial<ICollection>): ICollection {
     title: faker.word.words(2),
     author: faker.person.fullName(),
     subtitle: faker.word.words(7),
-    image: new ImageURL(`${process.env.PUBLIC_URL}/assets/collection.jpg`),
+    image: new ImageURL(`${process.env.NEXT_PUBLIC_DEV_URL}/assets/collection.jpg`),
     ...initial,
   }
 }
