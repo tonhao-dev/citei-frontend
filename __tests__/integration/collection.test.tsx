@@ -3,50 +3,51 @@ import userEvent from '@testing-library/user-event';
 import { faker } from '@faker-js/faker';
 import Collection from '../../src/containers/collection';
 import { collection } from '../../__tests__/factory/collection';
+import { collectionService as collectionServiceFactory } from '../../__tests__/factory/collectionService';
 import { ICollectionService } from '../../src/service/collection';
 
 describe('/containers/collection', () => {
   describe('Deve exibir a tela de coleções corretamente quando nenhuma coleção for injetada', () => {
     it('Deve exibir o título da página quando ela for carregada', async () => {
-      const collectionService: ICollectionService = {
+      const collectionService = collectionServiceFactory({
         getValidCollections: jest.fn().mockResolvedValue([]),
-      }
+      })
       await act(async () => render(<Collection collectionService={collectionService} />));
 
       expect(screen.getByRole('heading', { name: 'Citei' })).toBeInTheDocument();
     });
 
     it('Deve renderizar uma lista de coleções vazia quando nenhuma coleção for injetada', async () => {
-      const collectionService: ICollectionService = {
+      const collectionService = collectionServiceFactory({
         getValidCollections: jest.fn().mockResolvedValue([]),
-      }
+      })
       await act(async () => render(<Collection collectionService={collectionService} />));
 
       expect(screen.queryByRole('list')).toBeEmptyDOMElement();
     });
 
     it('Deve exibir o botão de "Adicionar coleção"', async () => {
-      const collectionService: ICollectionService = {
+      const collectionService = collectionServiceFactory({
         getValidCollections: jest.fn().mockResolvedValue([]),
-      }
+      })
       await act(async () => render(<Collection collectionService={collectionService} />));
 
       expect(screen.getByText('Adicionar coleção')).toBeInTheDocument();
     });
 
     it('Deve exibir o subtítulo da página quando ela for carregada', async () => {
-      const collectionService: ICollectionService = {
+      const collectionService = collectionServiceFactory({
         getValidCollections: jest.fn().mockResolvedValue([]),
-      };
+      });
       await act(async () => render(<Collection collectionService={collectionService} />));
 
       expect(screen.getByRole('heading', { name: 'Coleções, seu cunjunto de citações em reunidos em lugar.' }));
     });
 
     it('Deve exibir um ícone de buscar quando a página for carregada', async () => {
-      const collectionService: ICollectionService = {
+      const collectionService = collectionServiceFactory({
         getValidCollections: jest.fn().mockResolvedValue([]),
-      }
+      });
 
       await act(async () => render(<Collection collectionService={collectionService} />));
 
@@ -54,9 +55,9 @@ describe('/containers/collection', () => {
     });
 
     it('Deve esconder o título da página quando o icone de buscar for pressionado', async () => {
-      const collectionService: ICollectionService = {
+      const collectionService = collectionServiceFactory({
         getValidCollections: jest.fn().mockResolvedValue([]),
-      }
+      });
       await act(async () => render(<Collection collectionService={collectionService} />));
 
       await act(async () => userEvent.click(screen.getByLabelText('search-icon')));
@@ -65,9 +66,9 @@ describe('/containers/collection', () => {
     });
 
     it('Deve esconder o subtítulo da página quando o icone de buscar for pressionado', async () => {
-      const collectionService: ICollectionService = {
+      const collectionService = collectionServiceFactory({
         getValidCollections: jest.fn().mockResolvedValue([]),
-      }
+      });
       await act(async () => render(<Collection collectionService={collectionService} />));
 
       await act(async () => userEvent.click(screen.getByLabelText('search-icon')));
@@ -81,9 +82,9 @@ describe('/containers/collection', () => {
       const collections = Array.from(Array(faker.number.int({ min: 1, max: 10 }))).map(() => collection({
         title: faker.word.words(2)
       }));
-      const collectionService: ICollectionService = {
+      const collectionService = collectionServiceFactory({
         getValidCollections: jest.fn().mockResolvedValue(collections),
-      }
+      });
       await act(async () => render(<Collection collectionService={collectionService} />));
 
       collections.forEach(({ title }) => expect(screen.getByText(title)).toBeInTheDocument());
@@ -91,70 +92,69 @@ describe('/containers/collection', () => {
   });
 
   describe('Deve exibir corretamente o modal de adicionar coleção', () => {
-    describe('Deve exibir o modal de adicionar coleção quando o usuário clicar no botão "Adicionar coleção"', () => {
-      it('Deve exibir um campo para inserir o título da coleção', async () => {
-        const collectionService: ICollectionService = {
-          getValidCollections: jest.fn().mockResolvedValue([]),
-        }
-        await act(async () => render(<Collection collectionService={collectionService} />));
-
-        await userEvent.click(screen.getByText('Adicionar coleção'));
-
-        expect(screen.getByPlaceholderText('Título da coleção')).toBeVisible();
+    it('Deve exibir um campo para inserir o título da coleção', async () => {
+      const collectionService = collectionServiceFactory({
+        getValidCollections: jest.fn().mockResolvedValue([]),
       });
+      await act(async () => render(<Collection collectionService={collectionService} />));
 
-      it('Deve exibir um campo para inserir o subtítulo da coleção', async () => {
-        const collectionService: ICollectionService = {
-          getValidCollections: jest.fn().mockResolvedValue([]),
-        }
-        await act(async () => render(<Collection collectionService={collectionService} />));
+      await userEvent.click(screen.getByText('Adicionar coleção'));
 
-        await userEvent.click(screen.getByText('Adicionar coleção'));
-
-        expect(screen.getByPlaceholderText('Subtítulo da coleção')).toBeVisible();
-      });
-
-      it('Deve exibir um campo para inserir link da imagem de capa da coleção', async () => {
-        const collectionService: ICollectionService = {
-          getValidCollections: jest.fn().mockResolvedValue([]),
-        }
-        await act(async () => render(<Collection collectionService={collectionService} />));
-
-        await userEvent.click(screen.getByText('Adicionar coleção'));
-
-        expect(screen.getByPlaceholderText('Link para imagem de capa')).toBeVisible();
-      });
-
-      it('Deve exibir um campo para inserir o nome do autor da coleção', async () => {
-        const collectionService: ICollectionService = {
-          getValidCollections: jest.fn().mockResolvedValue([]),
-        }
-        await act(async () => render(<Collection collectionService={collectionService} />));
-
-        await userEvent.click(screen.getByText('Adicionar coleção'));
-
-        expect(screen.getByPlaceholderText('Autor da coleção')).toBeVisible();
-      });
-
-      it('Deve exibir o botão de salvar a coleção', async () => {
-        const collectionService: ICollectionService = {
-          getValidCollections: jest.fn().mockResolvedValue([]),
-        }
-        await act(async () => render(<Collection collectionService={collectionService} />));
-
-        await userEvent.click(screen.getByText('Adicionar coleção'));
-
-        expect(screen.getByText('Salvar')).toBeVisible();
-      });
+      expect(screen.getByPlaceholderText('Título da coleção')).toBeVisible();
     });
+
+    it('Deve exibir um campo para inserir o subtítulo da coleção', async () => {
+      const collectionService = collectionServiceFactory({
+        getValidCollections: jest.fn().mockResolvedValue([]),
+      });
+      await act(async () => render(<Collection collectionService={collectionService} />));
+
+      await userEvent.click(screen.getByText('Adicionar coleção'));
+
+      expect(screen.getByPlaceholderText('Subtítulo da coleção')).toBeVisible();
+    });
+
+    it('Deve exibir um campo para inserir link da imagem de capa da coleção', async () => {
+      const collectionService = collectionServiceFactory({
+        getValidCollections: jest.fn().mockResolvedValue([]),
+      });
+      await act(async () => render(<Collection collectionService={collectionService} />));
+
+      await userEvent.click(screen.getByText('Adicionar coleção'));
+
+      expect(screen.getByPlaceholderText('Link para imagem de capa')).toBeVisible();
+    });
+
+    it('Deve exibir um campo para inserir o nome do autor da coleção', async () => {
+      const collectionService = collectionServiceFactory({
+        getValidCollections: jest.fn().mockResolvedValue([]),
+      });
+      await act(async () => render(<Collection collectionService={collectionService} />));
+
+      await userEvent.click(screen.getByText('Adicionar coleção'));
+
+      expect(screen.getByPlaceholderText('Autor da coleção')).toBeVisible();
+    });
+
+    it('Deve exibir o botão de salvar a coleção', async () => {
+      const collectionService = collectionServiceFactory({
+        getValidCollections: jest.fn().mockResolvedValue([]),
+      });
+      await act(async () => render(<Collection collectionService={collectionService} />));
+
+      await userEvent.click(screen.getByText('Adicionar coleção'));
+
+      expect(screen.getByText('Salvar')).toBeVisible();
+    });
+
   });
 
   describe('Deve manter o modal aberto quando o usuário clicar no botão salvar após inserir alguma informação incorreta', () => {
     it('Deve manter o modal aberto quando o usuário clicar no botão de Salvar coleção após não inserir o título da coleção', async () => {
       const collections = Array.from(Array(faker.number.int({ min: 1, max: 10 }))).map(() => collection());
-      const collectionService: ICollectionService = {
+      const collectionService = collectionServiceFactory({
         getValidCollections: jest.fn().mockResolvedValue(collections),
-      }
+      });
       await act(async () => render(<Collection collectionService={collectionService} />));
       await userEvent.click(screen.getByText('Adicionar coleção'));
 
@@ -166,13 +166,16 @@ describe('/containers/collection', () => {
 
   describe('Deve filtrar as coleções corretamente', () => {
     it('Deve exibir a coleção cujo titulo foi digitado no campo de busca', async () => {
-      const collections = Array.from(Array(faker.number.int({ min: 4, max: 10 }))).map(() => collection());
+      const collections = Array.from(Array(faker.number.int({ min: 4, max: 10 }))).map(() => collection({
+        title: faker.word.words(2),
+      }));
       const searchCollection = faker.helpers.arrayElement(collections);
-      const collectionService: ICollectionService = {
+      const collectionService = collectionServiceFactory({
         getValidCollections: jest.fn().mockResolvedValue(collections),
-      }
+        filterCollections: (name, collections) => collections.filter(collection => collection.title === name)
+      });
       await act(async () => render(<Collection collectionService={collectionService} />));
-      await userEvent.click(screen.getByTestId('search-icon'));
+      await userEvent.click(screen.getByLabelText('search-icon'));
 
       await userEvent.type(screen.getByRole('textbox'), searchCollection.title);
 
@@ -180,18 +183,20 @@ describe('/containers/collection', () => {
     });
 
     it('Deve esconder as coleções cujo título não é igual ao título digitado no campo de busca', async () => {
-      const collections = Array.from(Array(faker.number.int({ min: 4, max: 10 }))).map(() => collection());
+      const collections = Array.from(Array(faker.number.int({ min: 4, max: 10 }))).map(() => collection({
+        title: faker.word.words(2),
+      }));
       const [first, second] = faker.helpers.arrayElements(collections, 2);
-      const collectionService: ICollectionService = {
+      const collectionService = collectionServiceFactory({
         getValidCollections: jest.fn().mockResolvedValue(collections),
-      }
+        filterCollections: (name, collections) => collections.filter(collection => collection.title === name)
+      });
       await act(async () => render(<Collection collectionService={collectionService} />));
-
-      await userEvent.click(screen.getByTestId('search-icon'));
+      await userEvent.click(screen.getByLabelText('search-icon'));
 
       await userEvent.type(screen.getByRole('textbox'), first.title);
 
-      expect(screen.getByText(second.title)).not.toBeInTheDocument();
+      expect(screen.queryByText(second.title)).toBe(null);
     });
   });
 });
