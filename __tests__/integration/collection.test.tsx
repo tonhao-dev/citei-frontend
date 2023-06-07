@@ -147,6 +147,20 @@ describe('/containers/collection', () => {
       expect(screen.getByText('Salvar')).toBeVisible();
     });
 
+    it('Deve esconder o modal quando o usuário clicar no botão "Salvar" após inserir todas as informações corretamente', async () => {
+      const collectionService = collectionServiceFactory();
+      const newCollection = collection();
+      await act(async () => render(<Collection collectionService={collectionService} />));
+      await userEvent.click(screen.getByText('Adicionar coleção'));
+      await userEvent.type(screen.getByPlaceholderText('Título da coleção'), newCollection.title);
+      await userEvent.type(screen.getByPlaceholderText('Subtítulo da coleção'), newCollection.subtitle);
+      await userEvent.type(screen.getByPlaceholderText('Link para imagem de capa'), newCollection.image.url);
+      await userEvent.type(screen.getByPlaceholderText('Autor da coleção'), newCollection.author);
+
+      await userEvent.click(screen.getByRole('button', { name: 'Salvar' }));
+
+      expect(screen.queryByText('Salvar')).toBe(null);
+    });
   });
 
   describe('Deve manter o modal aberto quando o usuário clicar no botão salvar após inserir alguma informação incorreta', () => {
@@ -154,6 +168,7 @@ describe('/containers/collection', () => {
       const collections = Array.from(Array(faker.number.int({ min: 1, max: 10 }))).map(() => collection());
       const collectionService = collectionServiceFactory({
         getValidCollections: jest.fn().mockResolvedValue(collections),
+        isValidCollection: () => false,
       });
       await act(async () => render(<Collection collectionService={collectionService} />));
       await userEvent.click(screen.getByText('Adicionar coleção'));
