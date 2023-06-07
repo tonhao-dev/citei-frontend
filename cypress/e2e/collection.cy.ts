@@ -18,20 +18,20 @@ describe('e2e/collection', () => {
 
   describe('Deve exibir corretamente o modal de cadastrar coleção', () => {
     it('Deve exibir a coleção que foi adicionada pelo usuário através do modal de adicionar coleção', () => {
-      const newCollection = collection();
-      const src = faker.image.url();
-      cy.visit('http://localhost:8080');
-      cy.get('button').contains('Adicionar coleção').click();
+      // Utilize a factory de coleção para gerar os dados de uma nova coleção
+      // Utilize o faker para gerar uma url de imagem valida
+      // Acesse a URL da aplicação
+      // Faça o modal de criar coleção aparecer na tela
 
-      cy.get('input[placeholder="Título da coleção"]').type(newCollection.title);
-      cy.get('input[placeholder="Subtítulo da coleção"]').type(newCollection.subtitle);
-      cy.get('input[placeholder="Link para imagem de capa"]').type(src);
-      cy.get('input[placeholder="Autor da coleção"]').type(newCollection.author);
-      cy.get('button').contains('Salvar').click();
+      cy.get('input[placeholder="Título da coleção"]').type('TROQUE-PELOS-DADOS-DA-FACTORY');
+      // Complete com os dados dos outros campos
+      // Não esqueça de clicar no botão com o texto de salvar
+
       cy.get('footer').contains('Rodapé').scrollIntoView();
-      cy.wait(1000);
+      // Talvez seja interessante procurar na documentação do cypress uma maneira de ESPERAR algum tempo
+      // até que a tela realmente termine a requisição
 
-      cy.get('h3').contains(newCollection.title).should('be.visible');
+      // Aqui você deve fazer o assert, o h3 deve estar visível com o texto da nova coleção
     });
   });
 
