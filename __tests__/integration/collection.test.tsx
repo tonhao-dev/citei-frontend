@@ -6,6 +6,10 @@ import Collection from '../../src/containers/collection';
 import { collection } from '../../__tests__/factory/collection';
 import { collectionService as collectionServiceFactory } from '../../__tests__/factory/collectionService';
 
+beforeAll(() => {
+  jest.spyOn(window, 'alert').mockImplementation(() => { });
+});
+
 describe('/containers/collection', () => {
   describe('Deve exibir a tela de coleções corretamente quando nenhuma coleção for injetada', () => {
     it('Deve exibir o título da página quando ela for carregada', async () => {
@@ -43,7 +47,7 @@ describe('/containers/collection', () => {
 
       expect(
         screen.getByRole('heading', {
-          name: 'Coleções, seu cunjunto de citações em reunidos em lugar.',
+          name: 'Coleções, seu conjunto de citações em reunidos em lugar.',
         })
       );
     });
@@ -173,6 +177,7 @@ describe('/containers/collection', () => {
 
       await userEvent.click(screen.getByRole('button', { name: 'Salvar' }));
 
+      expect(window.alert).toBeCalledTimes(0);
       expect(screen.queryByText('Salvar')).toBe(null);
     });
   });
