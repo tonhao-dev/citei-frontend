@@ -1,4 +1,3 @@
-import { faker } from '@faker-js/faker';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import CollectionList from '.';
@@ -16,7 +15,11 @@ type CollectionListStory = StoryObj<typeof CollectionList>;
 
 export const CollectionListStory: CollectionListStory = {
   args: {
-    collections: Array.from(Array(4)).map(() => collection())
+    collections: Array.from(Array(4)).map(() => collection({
+      title: 'Título da coleção',
+      author: 'Luis',
+      subtitle: 'Subtítulo da coleção',
+    }))
   },
 };
 
