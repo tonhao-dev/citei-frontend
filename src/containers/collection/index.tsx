@@ -28,7 +28,8 @@ function Collection({ collectionService }: ICollectionProps) {
   async function save() {
     if (!collectionService.isValidCollection(newCollection)) return window.alert('Erro! revise os campos do modal');
 
-    collectionService.saveCollection(newCollection as IRawCollection);
+    const collection = await collectionService.saveCollection(newCollection as IRawCollection);
+    setCollections([...collections, collection]);
     setModalIsOpen(!modalIsOpen);
     setNewCollection({})
   }

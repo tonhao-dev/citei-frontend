@@ -1,12 +1,12 @@
-import { AxiosInstance } from "axios";
-import { ICollection, IRawCollection, IServiceCollection, IServiceCollectionBody } from "../../src/interfaces/collection";
+import { AxiosInstance, AxiosResponse } from "axios";
+import { ICollection, IRawCollection, IServiceCollection, IServiceCollectionBody, IServiceCollectionResponse } from "../../src/interfaces/collection";
 import { ImageURL } from "../entities/url";
 import { Collection } from "../entities/collection";
 
 export interface ICollectionService {
   getValidCollections: () => Promise<ICollection[]>;
   filterCollections: (text: string, collections: ICollection[]) => ICollection[];
-  saveCollection: (collection: IRawCollection) => void | Promise<void>;
+  saveCollection: (collection: IRawCollection) => Promise<ICollection>;
   isValidCollection: (rawCollection: Partial<IRawCollection>) => boolean;
 }
 
@@ -37,13 +37,24 @@ export class CollectionService implements ICollectionService {
     return collections.filter(({title}) => title.includes(text));
   }
 
-  public async saveCollection(collection: IRawCollection) {
-    await this.api.post<any, any, IServiceCollectionBody>('colecao', {
+  public async saveCollection(collection: IRawCollection): Promise<ICollection> {
+    const { data } = await this.api.post<IServiceCollectionResponse, AxiosResponse<IServiceCollectionResponse>, IServiceCollectionBody>('colecao', {
       titulo: collection.title,
       subtitulo: collection.subtitle,
       autor: collection.author,
       imagem: collection.image
     });
+
+    return this.fromResponseToCollection(data);
+  }
+
+  private fromResponseToCollection(collection: IServiceCollectionResponse): ICollection {
+    return {
+      title: collection.titulo,
+      subtitle:collection.subtitulo,
+      author: collection.autor,
+      image: new ImageURL(collection.imagem)
+    }
   }
 
   public isValidCollection({title,subtitle,author,image}: Partial<IRawCollection>){
