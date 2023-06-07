@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { ICollection, IRawCollection, IServiceCollection } from "../../src/interfaces/collection";
+import { ICollection, IRawCollection, IServiceCollection, IServiceCollectionBody } from "../../src/interfaces/collection";
 import { ImageURL } from "../entities/url";
 import { Collection } from "../entities/collection";
 
@@ -37,8 +37,13 @@ export class CollectionService implements ICollectionService {
     return collections.filter(({title}) => title.includes(text));
   }
 
-  public saveCollection(collection: IRawCollection) {
-    console.log({collection})
+  public async saveCollection(collection: IRawCollection) {
+    await this.api.post<any, any, IServiceCollectionBody>('colecao', {
+      titulo: collection.title,
+      subtitulo: collection.subtitle,
+      autor: collection.author,
+      imagem: collection.image
+    });
   }
 
   public isValidCollection({title,subtitle,author,image}: Partial<IRawCollection>){
