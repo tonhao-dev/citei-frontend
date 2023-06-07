@@ -11,13 +11,14 @@ describe('entities/collection', () => {
         author: faker.person.fullName(),
         image: new ImageURL(faker.image.url()),
         subtitle: faker.word.words(7),
-      }
+      };
 
       const collection = new Collection(
         arrange.title,
         arrange.author,
         arrange.subtitle,
-        arrange.image)
+        arrange.image
+      );
 
       expect(collection.isValid).toBe(false);
     });
@@ -28,13 +29,14 @@ describe('entities/collection', () => {
         author: faker.person.fullName(),
         image: new ImageURL(faker.image.url()),
         subtitle: '',
-      }
+      };
 
       const collection = new Collection(
         arrange.title,
         arrange.author,
         arrange.subtitle,
-        arrange.image)
+        arrange.image
+      );
 
       expect(collection.isValid).toBe(false);
     });
@@ -45,7 +47,7 @@ describe('entities/collection', () => {
         author: faker.person.fullName(),
         image: new ImageURL(''),
         subtitle: faker.word.words(7),
-      }
+      };
 
       const collection = new Collection(
         arrange.title,
@@ -59,18 +61,19 @@ describe('entities/collection', () => {
   });
 
   it('Deve retornar o valor true na propriedade isValid quando uma coleção for criada com todos os valores válidos', () => {
-    const arrange:ICollection = {
+    const arrange: ICollection = {
       title: faker.word.words(2),
       subtitle: faker.word.words(7),
       author: faker.person.fullName(),
-      image: new ImageURL(faker.image.url())
-    }
+      image: new ImageURL(faker.image.url()),
+    };
 
     const collection = new Collection(
       arrange.title,
       arrange.author,
       arrange.subtitle,
-      arrange.image);
+      arrange.image
+    );
 
     expect(collection.isValid).toBe(true);
   });

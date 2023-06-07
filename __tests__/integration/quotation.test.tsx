@@ -1,8 +1,9 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { faker } from '@faker-js/faker';
-import Quotation from '@/containers/quotation';
-import { quotation } from '__tests__/factory/quotation';
+import Quotation from '../../src/containers/quotation'; // implement quotation
+import { quotation } from '../factory/quotation';
 
 describe('/containers/quotation', () => {
   describe('Deve renderizar a tela de citação corretamente quando nenhuma citação estiver visível', () => {
@@ -25,12 +26,14 @@ describe('/containers/quotation', () => {
       render(<Quotation fetchData={fetch} />);
 
       expect(screen.getByText('Adicionar citação')).toBeInTheDocument();
-    })
+    });
   });
 
   describe('Deve renderizar a tela de citação corretamente quando uma função de mock de citações for injetada', () => {
     it('Deve renderizar uma lista de citações passada via prop "fetchData"', () => {
-      const quotations = Array.from(Array(faker.number.int({ min: 1, max: 10 }))).map(() => quotation({ collection: 'colecao' }));
+      const quotations = Array.from(Array(faker.number.int({ min: 1, max: 10 }))).map(() =>
+        quotation({ collection: 'colecao' })
+      );
       const fetch = jest.fn(() => Promise.resolve(quotations));
       render(<Quotation fetchData={fetch} />);
 
@@ -40,7 +43,9 @@ describe('/containers/quotation', () => {
 
   describe('Deve renderizar corretamente o modal de Adicionar citação', () => {
     it('Deve exibir o modal de adicionar citação corretamente quando o usuário clicar no botão de "Adicionar citação"', async () => {
-      const quotations = Array.from(Array(faker.number.int({ min: 1, max: 10 }))).map(() => quotation({ collection: 'colecao' }));
+      const quotations = Array.from(Array(faker.number.int({ min: 1, max: 10 }))).map(() =>
+        quotation({ collection: 'colecao' })
+      );
       const fetch = jest.fn(() => Promise.resolve(quotations));
       render(<Quotation fetchData={fetch} />);
 
@@ -50,7 +55,9 @@ describe('/containers/quotation', () => {
     });
 
     it('Deve exibir um input de texto dentro do modal de adicionar citação quando o usuário clicar no botão de "Adicionar citação"', async () => {
-      const quotations = Array.from(Array(faker.number.int({ min: 1, max: 10 }))).map(() => quotation({ collection: 'colecao' }));
+      const quotations = Array.from(Array(faker.number.int({ min: 1, max: 10 }))).map(() =>
+        quotation({ collection: 'colecao' })
+      );
       const fetch = jest.fn(() => Promise.resolve(quotations));
       render(<Quotation fetchData={fetch} />);
 
@@ -72,7 +79,9 @@ describe('/containers/quotation', () => {
 
   describe('Deve filtrar as citações corretamente', () => {
     it('Deve seguir exibindo todas as citações quando o usuário não inserir nenhum texto após clicar no icone de buscar', async () => {
-      const quotations = Array.from(Array(faker.number.int({ min: 1, max: 10 }))).map(() => quotation({ collection: 'colecao' }));
+      const quotations = Array.from(Array(faker.number.int({ min: 1, max: 10 }))).map(() =>
+        quotation({ collection: 'colecao' })
+      );
       const fetch = jest.fn(() => Promise.resolve(quotations));
       render(<Quotation fetchData={fetch} />);
 
@@ -82,7 +91,9 @@ describe('/containers/quotation', () => {
     });
 
     it('Deve exibir somente a citação cujo texto for inserido no campo de buscar citação', async () => {
-      const quotations = Array.from(Array(faker.number.int({ min: 5, max: 10 }))).map(() => quotation({ collection: 'colecao' }));
+      const quotations = Array.from(Array(faker.number.int({ min: 5, max: 10 }))).map(() =>
+        quotation({ collection: 'colecao' })
+      );
       const fetch = jest.fn(() => Promise.resolve(quotations));
       const [first, second] = faker.helpers.arrayElements(quotations, 2);
       render(<Quotation fetchData={fetch} />);

@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { faker } from '@faker-js/faker';
@@ -23,7 +24,7 @@ describe('<Search />', () => {
       await userEvent.click(screen.getByLabelText('search-icon'));
 
       expect(screen.getByLabelText('search-close')).toBeVisible();
-    })
+    });
 
     it('Deve exibir o texto digitado pelo usuário no input de texto exibido quando o icone de busca for clicado', async () => {
       const title = faker.word.words(1);
@@ -61,4 +62,4 @@ describe('<Search />', () => {
       expect(onChange).toHaveBeenCalledWith(text);
     });
   });
-})
+});
