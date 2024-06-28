@@ -62,8 +62,6 @@ function Collection({ collectionService }: ICollectionProps) {
       </Modal>
 
       <Button title="Adicionar coleção" onClick={() => setModalIsOpen(!modalIsOpen)} aria-label='Adicionar coleção' />
-
-      <footer className={styles.footer}>Rodapé</footer>
     </div>
   )
 }
