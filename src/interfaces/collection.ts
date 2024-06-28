@@ -2,6 +2,7 @@ import { ImageURL } from "src/entities/url";
 import { ISODate } from "./isodate";
 
 export interface ICollection {
+  readonly id: number;
   readonly title: string;
   readonly subtitle: string;
   readonly author: string;

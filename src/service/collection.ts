@@ -1,5 +1,5 @@
-import { AxiosInstance, AxiosResponse } from "axios";
-import { ICollection, IRawCollection, IServiceCollection, IServiceCollectionBody, IServiceCollectionResponse } from "../../src/interfaces/collection";
+
+import { ICollection, IRawCollection, IServiceCollectionResponse } from "../../src/interfaces/collection";
 import { ImageURL } from "../entities/url";
 import { Collection } from "../entities/collection";
 import { ICollectionRepository } from "src/repository/collection";
@@ -22,15 +22,13 @@ export class CollectionService implements ICollectionService {
     const colecoes = await this.repository.getAll();
 
     return colecoes.map(({
-      colecao_titulo,
-      colecao_subtitulo,
-      colecao_autor,
-      colecao_imagem
+      id, titulo, subtitulo, autor, imagem
     }) => ({
-      title: colecao_titulo,
-      subtitle: colecao_subtitulo,
-      author: colecao_autor,
-      image: new ImageURL(colecao_imagem)
+      id,
+      title: titulo,
+      subtitle: subtitulo,
+      author: autor,
+      image: new ImageURL(imagem)
     }))
   }
 
@@ -51,6 +49,7 @@ export class CollectionService implements ICollectionService {
 
   private fromResponseToCollection(collection: IServiceCollectionResponse): ICollection {
     return {
+      id: collection.id,
       title: collection.titulo,
       subtitle: collection.subtitulo,
       author: collection.autor,

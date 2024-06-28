@@ -1,16 +1,29 @@
-import { ICollection, IServiceCollection, IServiceCollectionBody, IServiceCollectionResponse } from "src/interfaces/collection";
+import { IServiceCollectionBody, IServiceCollectionResponse } from "src/interfaces/collection";
 
 export interface ICollectionRepository {
-  getAll: () => Promise<IServiceCollection[]>;
+  getAll: () => Promise<IServiceCollectionResponse[]>;
   saveOne: (collection: IServiceCollectionBody) => Promise<IServiceCollectionResponse>;
 }
 
 export class CollectionRepository implements ICollectionRepository {
   public async getAll() {
-    return []
+    const raw = localStorage.getItem('collections')
+    if (!raw) return []
+
+    return JSON.parse(raw) as IServiceCollectionResponse[]
   }
 
   public async saveOne(collection: IServiceCollectionBody) {
-    return {} as IServiceCollectionResponse
+    const collections = await this.getAll()
+    const id = collections.length + 1
+    const newCollection: IServiceCollectionResponse = {
+      ...collection,
+      id: id,
+      created_at: new Date().toISOString()
+    }
+
+    localStorage.setItem('collections', JSON.stringify([...collections, newCollection]))
+
+    return newCollection
   }
 }
