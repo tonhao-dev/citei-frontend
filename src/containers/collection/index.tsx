@@ -50,7 +50,7 @@ function Collection({ collectionService }: ICollectionProps) {
 
       <CollectionList collections={collectionService.filterCollections(search, collections)} />
 
-      <Modal visible={modalIsOpen}>
+      <Modal visible={modalIsOpen} onClose={() => setModalIsOpen(false)}>
         <form className={styles.form} onSubmit={e => e.preventDefault()}>
           <Input required placeholder='Título da coleção' onChange={(e) => { setNewCollection({ ...newCollection, title: e.target.value }) }} />
           <Input required placeholder='Subtítulo da coleção' onChange={(e) => { setNewCollection({ ...newCollection, subtitle: e.target.value }) }} />
