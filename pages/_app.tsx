@@ -1,10 +1,10 @@
 import '@/styles/global.css';
 import type { AppProps } from 'next/app';
-import { Cormorant } from 'next/font/google';
+import { Roboto } from 'next/font/google';
 import Head from 'next/head';
 
-const cormorant = Cormorant({
-  weight: ['300', '400', '500', '600', '700'],
+const roboto = Roboto({
+  weight: ['300', '400', '500', '700'],
   style: ['normal', 'italic'],
   subsets: ['latin'],
 });
@@ -12,7 +12,7 @@ const cormorant = Cormorant({
 const FontFamilyVariables = () => (
   <style jsx global>{`
     :root {
-      --cormorant-font: ${cormorant.style.fontFamily};
+      --roboto-font: ${roboto.style.fontFamily};
     }
   `}</style>
 );
