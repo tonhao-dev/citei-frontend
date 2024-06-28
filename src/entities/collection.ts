@@ -2,6 +2,7 @@ import { ICollection } from "src/interfaces/collection";
 import { ImageURL } from "./url";
 
 export class Collection implements ICollection {
+  public id = 0;
   public title = 'Título da coleção';
   public author = '';
   public subtitle = 'Subtítulo da coleção';
@@ -17,23 +18,23 @@ export class Collection implements ICollection {
     this.validate();
   }
 
-  private validate(){
+  private validate() {
     this.isValid = this.isValidTitle() && this.isValidSubTitle() && this.isValidAuthor() && this.isValidImage();
   }
 
-  private isValidTitle(){
+  private isValidTitle() {
     return this.title !== '';
   }
 
-  private isValidSubTitle(){
+  private isValidSubTitle() {
     return this.subtitle !== '';
   }
 
-  private isValidAuthor(){
+  private isValidAuthor() {
     return this.author !== '';
   }
 
-  private isValidImage(){
+  private isValidImage() {
     return this.image.isValid;
   }
 }
