@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 import { ImageURL } from "../../src/entities/url";
 import { ICollection } from "../../src/interfaces/collection";
 
-export function collection(initial?: Partial<ICollection>): ICollection {
+export function collection(initial?: Partial<ICollection>): Omit<ICollection, 'id'> {
   return {
     title: faker.word.words(2),
     author: faker.person.fullName(),
