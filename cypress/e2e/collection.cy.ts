@@ -6,11 +6,17 @@ import {collection} from '../../__tests__/factory/collection'
 // If you're using ESLint on your project, we recommend installing the ESLint Cypress plugin instead:
 // https://github.com/cypress-io/eslint-plugin-cypress
 
+beforeEach(() => {
+  cy.visit('http://localhost:8080');
+
+  cy.wait(1000);
+})
+
 // Cypress E2E Test
 describe('e2e/collection', () => {
   describe('Deve carregar a página de coleções corretamente', () => {
     it('Deve exibir o botão de adicionar coleção quando ela for carregada', () => {
-      cy.visit('http://localhost:8080');
+      
 
       cy.get('button').contains('Adicionar coleção').should('be.visible');
     });
@@ -19,16 +25,8 @@ describe('e2e/collection', () => {
   describe('Deve exibir corretamente o modal de cadastrar coleção', () => {
     it('Deve exibir a coleção que foi adicionada pelo usuário através do modal de adicionar coleção', () => {
       const newCollection = collection();
-      const src = faker.image.url();
-      cy.visit('http://localhost:8080');
-      cy.get('button').contains('Adicionar coleção').click();
+      cy.addCollection({ ...newCollection, image: newCollection.image.url })
 
-      cy.get('input[placeholder="Título da coleção"]').type(newCollection.title);
-      cy.get('input[placeholder="Subtítulo da coleção"]').type(newCollection.subtitle);
-      cy.get('input[placeholder="Link para imagem de capa"]').type(src);
-      cy.get('input[placeholder="Autor da coleção"]').type(newCollection.author);
-      cy.get('button').contains('Salvar').click();
-      cy.get('footer').contains('Rodapé').scrollIntoView();
       cy.wait(1000);
 
       cy.get('h3').contains(newCollection.title).should('be.visible');
@@ -37,17 +35,38 @@ describe('e2e/collection', () => {
 
   describe('Deve filtrar as coleções corretamente', () => {
     it('Deve exibir a coleção cujo título foi digitado no campo de buscar', async() => {
-      cy.visit('http://localhost:8080');
+      const collectionOne = collection();
+      const collectionTwo = collection();
 
-      cy.get('h3').first().then((element) => {
-        const firstCollectionTitle = element[0].innerText;
+      cy.addCollection({ ...collectionOne, image: collectionOne.image.url })
+      cy.addCollection({ ...collectionTwo, image: collectionTwo.image.url })
 
-        cy.get('[aria-label="search-icon"]').click();
-        cy.get('input[name="search-input"').type(firstCollectionTitle);
+      cy.wait(1000);
+  
+      cy.get('[aria-label="search-icon"]').click();
+      cy.get('input[name="search-input"').type(collectionOne.title);
 
-        cy.get('h3').contains(firstCollectionTitle).should('be.visible');
-      });
+      cy.wait(1000);
+
+      cy.get('h3').contains(collectionOne.title).should('be.visible');
     });
+
+    it('Não deve exibir uma coleção quando o título digitado não for igual ao da coleção criada', async () => {
+      const collectionOne = collection();
+      const collectionTwo = collection();
+
+      cy.addCollection({ ...collectionOne, image: collectionOne.image.url })
+      cy.addCollection({ ...collectionTwo, image: collectionTwo.image.url })
+
+      cy.wait(1000);
+  
+      cy.get('[aria-label="search-icon"]').click();
+      cy.get('input[name="search-input"').type(collectionOne.title);
+
+      cy.wait(1000);
+
+      cy.get('h3').contains(collectionTwo.title).should('not.be.visible');
+    })
   });
 })
 
